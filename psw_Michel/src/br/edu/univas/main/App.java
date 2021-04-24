@@ -32,6 +32,7 @@ public class App {
         senha = gerarSenha(senha, tamanho);
         System.out.println(senha);
         gerarArquivo(senha);
+        l.close();
     }
 
     public static int readInt() {
@@ -92,15 +93,17 @@ public class App {
 
     public static String verificarSenha(String senha, int tamanho) {
         if (senha.length() == tamanho) {
+            //verifica se todos caracteres selecionados foram sorteados.
             for (int i = 0; i < 4; i++) {
                 if (options[i] == 1) {
                     senha = "";
+                    // esse for é pra resetar o vetor ops pras opções escolhidas anteriormente, já
+                    // que a senha foi zerada!
+                    for (int j = 0; j < 4; j++) {
+                        options[j] = optionsBackup[j];
+                    }
+                    return senha;
                 }
-            }
-            // esse for é pra resetar o vetor ops pras opções escolhidas anteriormente, já
-            // que a senha foi zerada!
-            for (int j = 0; j < 4; j++) {
-                options[j] = optionsBackup[j];
             }
         }
         return senha;
